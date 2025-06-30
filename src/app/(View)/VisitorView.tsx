@@ -8,6 +8,7 @@ import AwardView from "@/components/AwardView";
 export default function VisitorView() {
   const [step, setStep] = useState(0);
   const [viewMode, setViewMode] = useState<'conversation' | 'gallery' | 'contact' | 'award'>('conversation'); // New state for view mode
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   // Get data for current step (if in conversation mode) or a default for gallery background
   const data = viewMode === 'conversation'
@@ -57,18 +58,22 @@ export default function VisitorView() {
     }
   };
 
-  const handleAnswer = (next: number | 'gallery' | 'contact' | 'award') => { // next can be number or 'gallery'
-    if (next === 'gallery') {
-      setViewMode('gallery');
-    } else if (typeof next === "number" && next < visitorModelData.length) {
-      setStep(next);
-    } else if (next === 'contact') {
-      setViewMode('contact');
-    } else if (next === 'award') {
-      setViewMode('award');
-    } else {
-      setStep(0);
-    }
+  const handleAnswer = (next: number | 'gallery' | 'contact' | 'award') => {
+    setIsTransitioning(true);
+    setTimeout(() => {
+      if (next === 'gallery') {
+        setViewMode('gallery');
+      } else if (typeof next === "number" && next < visitorModelData.length) {
+        setStep(next);
+      } else if (next === 'contact') {
+        setViewMode('contact');
+      } else if (next === 'award') {
+        setViewMode('award');
+      } else {
+        setStep(0);
+      }
+      setIsTransitioning(false);
+    }, 350);
   };
 
   return (
@@ -108,7 +113,7 @@ export default function VisitorView() {
           <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 w-full max-w-8xl flex justify-center z-10">
             <div className="relative w-11/12 flex justify-center">
               {/* Main PixelBox/Question Box */}
-              <div className="pixel-box-border bg-white w-full">
+              <div className={`pixel-box-border bg-white w-full transition-opacity duration-350 ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}>
                 <h2 className="text-2xl font-bold mb-4 pixel-text">{data.question}</h2>
                 <p className="text-gray-700 leading-relaxed">{data.description}</p>
                 <div className="w-full flex flex-wrap gap-4 justify-end mt-6">
@@ -117,6 +122,7 @@ export default function VisitorView() {
                       key={i}
                       className="bg-black text-white px-6 py-2 font-bold tracking-wider border-2 border-black hover:bg-white hover:text-black transition-all duration-200"
                       onClick={() => handleAnswer(ans.nextStep)}
+                      disabled={isTransitioning}
                     >
                       {ans.text}
                     </button>
@@ -144,6 +150,7 @@ export default function VisitorView() {
           border: 4px solid #000;
           position: relative;
           box-shadow: 0 0 0 2px #fff, 0 0 0 4px #000;
+          transition: opacity 0.35s;
         }
         .pixel-box-border:before,
         .pixel-box-border:after {

@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { FiDownload, FiLinkedin, FiGithub, FiMail, FiPhone, FiArrowRight } from 'react-icons/fi';
 import MatrixWaveBackground from '../../components/MatrixWaveBackground';
+import { projectData } from './ModelData';
 
 // --- Data (Keep as is) ---
 const professionalSummary = "A dedicated developer crafting seamless and engaging user experiences for both web and iOS. I transform complex ideas into clean, efficient, and beautiful applications.";
 const workExperience = [ { role: "Junior iOS Developer", company: "Apple Developer Academy", period: "2023 - Present" }, { role: "Front-End Developer", company: "BNCC", period: "2022 - 2023" } ];
 const skills = { "Languages": ["JavaScript", "TypeScript", "Swift", "Python"], "Frameworks": ["React", "Next.js", "SwiftUI", "Node.js"], "Tools": ["Git", "Docker", "Figma", "Xcode"] };
-const projects = [ { title: "Portfolio Website", description: "A dynamic, dual-view portfolio built with Next.js, featuring distinct, tailored experiences for different visitor types.", tech: ["Next.js", "TypeScript", "Tailwind CSS"], link: "#", image: "/gallery.png" }, { title: "iOS Fitness App", description: "A native iOS app designed to track fitness goals and workout progress, with a focus on a clean, user-friendly interface in SwiftUI.", tech: ["SwiftUI", "Combine", "CoreData"], link: "#", image: "/careless.png" }, { title: "iOS Fitness ", description: "A native iOS app designed to track fitness goals and workout progress, with a focus on a clean, user-friendly interface in SwiftUI.", tech: ["SwiftUI", "Combine", "CoreData"], link: "#", image: "/careless.png" },  ];
 const education = { degree: "Bachelor of Science in Computer Science", university: "BINUS University", period: "2021 - 2025" };
 
 // --- Reusable Components ---
@@ -17,7 +17,7 @@ const NavLink: React.FC<{onClick: () => void, isActive: boolean, children: React
     </button>
 );
 
-const ProjectCard: React.FC<{project: typeof projects[0]}> = ({ project }) => (
+const ProjectCard: React.FC<{project: typeof projectData[0]}> = ({ project }) => (
     <div className="group relative bg-slate-800/50 rounded-lg overflow-hidden border border-slate-700/50 transition-all duration-300 hover:border-slate-600/50 hover:shadow-2xl">
         <div className="absolute -inset-px bg-gradient-to-r from-cyan-400 to-violet-500 rounded-lg opacity-0 group-hover:opacity-60 transition-opacity duration-300 blur-md"></div>
         <div className="relative">
@@ -25,9 +25,6 @@ const ProjectCard: React.FC<{project: typeof projects[0]}> = ({ project }) => (
             <div className="p-6">
                 <h3 className="heading-font text-xl font-bold text-white mb-2">{project.title}</h3>
                 <p className="text-slate-400 mb-4">{project.description}</p>
-                <div className="flex flex-wrap gap-2 mb-4">
-                    {project.tech.map(t => <span key={t} className="bg-slate-700 text-cyan-300 px-2 py-1 text-xs rounded-full font-medium">{t}</span>)}
-                </div>
                 <a href={project.link} className="inline-flex items-center font-semibold text-slate-300 hover:text-white transition-colors">
                     View Project <FiArrowRight className="ml-2" />
                 </a>
@@ -82,7 +79,7 @@ const WorkView: React.FC = () => (
     <div className="animate-content-fade-in">
         <h3 className="heading-font text-4xl font-bold text-center text-transparent bg-clip-text bg-gradient-to-r from-slate-100 to-slate-400 mb-12">Featured Projects</h3>
         <div className="grid md:grid-cols-2 gap-8">
-            {projects.map(p => <ProjectCard key={p.title} project={p} />)}
+            {projectData.map(p => <ProjectCard key={p.title} project={p} />)}
         </div>
     </div>
 );
@@ -119,14 +116,18 @@ export default function RecruiterView() {
     <div className="flex flex-col min-h-screen animated-background text-slate-300 font-sans antialiased">
       <MatrixWaveBackground />
       <header className="sticky top-0 bg-slate-900/50 backdrop-blur-lg z-50 border-b border-slate-800">
-        <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-          <button onClick={() => setView('home')} className="heading-font text-2xl font-bold text-white hover:opacity-80 transition-opacity">Logo</button>
-          <nav className="hidden md:flex items-center gap-8">
+        <div className="max-w-6xl mx-auto px-6 py-4 grid grid-cols-3 items-center">
+          <div className="justify-self-start">
+            <button onClick={() => setView('home')} className="heading-font text-2xl font-bold text-white hover:opacity-80 transition-opacity">Logo</button>
+          </div>
+          <nav className="hidden md:flex items-center gap-8 justify-self-center">
             <NavLink onClick={() => setView('home')} isActive={view === 'home'}>Home</NavLink>
             <NavLink onClick={() => setView('work')} isActive={view === 'work'}>Work</NavLink>
             <NavLink onClick={() => setView('about')} isActive={view === 'about'}>Contact</NavLink>
           </nav>
-          <a href="#" className="hidden md:inline-block bg-slate-800 text-slate-300 px-5 py-2 rounded-lg font-medium hover:bg-slate-700 transition-colors border border-slate-700">Download CV</a>
+          <div className="justify-self-end">
+            <a href="#" className="hidden md:inline-block bg-slate-800 text-slate-300 px-5 py-2 rounded-lg font-medium hover:bg-slate-700 transition-colors border border-slate-700">Download CV</a>
+          </div>
         </div>
       </header>
 

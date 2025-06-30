@@ -147,50 +147,35 @@ export const visitorModelData: VisitorData[] = [
 export const projectData = [
   {
     id: 'proj1',
-    title: 'Pixel Art Platformer',
-    image: 'project_platformer.png',
-    description: 'A retro-style 2D platformer game with pixel art graphics and challenging levels.',
-    link: 'https://example.com/platformer',
-    category: 'games'
+    title: 'CariKursus',
+    image: 'CariKursus.png',
+    description: 'A web that helps students find the best courses for them.',
+    link: 'https://github.com/gustavohoze/carikursusfixed',
+    category: "web"
   },
   {
     id: 'proj2',
-    title: '8-bit Music Visualizer',
-    image: 'project_music_viz.png',
-    description: 'An interactive web application that visualizes music with mesmerizing pixel art animations.',
-    link: 'https://example.com/music-viz',
-    category: 'web'
+    title: 'BinSight',
+    image: 'BinSight.png',
+    description: 'A mobile app that helps commuter dispose their trash properly.',
+    link: 'https://github.com/MassiveMassimo/Binsight',
+    category: "iOS"
   },
   {
     id: 'proj3',
-    title: 'Retro Arcade Cabinet',
-    image: 'project_arcade.png',
-    description: 'A simulated arcade cabinet experience with classic pixel games, built with love.',
-    link: 'https://example.com/arcade',
-    category: 'games'
+    title: 'GoWay',
+    image: 'GoWay.png',
+    description: 'A mobile app that helps GOP people navigate the GOP environment.',
+    link: 'https://github.com/gustavohoze/GoWayRefined',
+    category: 'iOS'
   },
   {
     id: 'proj4',
-    title: 'Tile-based RPG',
-    image: 'project_rpg.png',
-    description: 'A top-down pixel art RPG with turn-based combat and an engaging storyline.',
-    link: 'https://example.com/rpg',
-    category: 'games'
-  },
-  {
-    id: 'proj5',
-    title: 'Pixel Art Portfolio Website',
-    image: 'project_portfolio.png',
-    description: 'This very website, designed and built with a strong pixel art aesthetic from scratch.',
-    link: 'https://example.com/this-site',
+    title: 'EasyLib',
+    image: 'EasyLib.png',
+    description: 'A web app that helps the process of borrowing and returning books easier.',
+    link: 'https://github.com/gustavohoze/EasyLib',
     category: 'web'
   },
-  {
-    id: 'proj6',
-    title: 'CLI Adventure Game',
-    image: 'project_cli.png',
-    description: 'A text-based adventure game playable directly from the command line, full of retro charm.',
-    link: 'https://example.com/cli-game',
-    category: 'games'
-  },
+
 ];

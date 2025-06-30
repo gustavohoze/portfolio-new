@@ -74,31 +74,7 @@ export default function GalleryView({ projects }: GalleryViewProps) {
   return (
     <div className="w-full h-full overflow-y-auto custom-scrollbar py-24 px-8 ">
       {/* Search and Filter Section - Top */}
-      <div className="mb-16 z-10 mx-auto">
-        <div className="bg-amber-950 p-8 shadow-pixel-main"> {/* Using new color classes */}
-          <input
-            type="text"
-            placeholder="SEARCH PROJECTS..."
-            className="w-full p-4 border-4 border-color-4 pixel-text mb-6 text-amber-200/20 text-center uppercase bg-color-3"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-          <div className="flex flex-wrap justify-center gap-4">
-            {categories.map(category => (
-              <button
-                key={category}
-                className={`pixel-text px-8 py-4 border-4 border-color-4 uppercase ${filterCategory === category ? 'bg-color-4 text-color-1' : 'bg-color-3 text-amber-200'} hover:bg-color-1 hover:text-color-4 transition-colors duration-200`}
-                onClick={() => {
-                  setFilterCategory(category);
-                  setCurrentPage(1);
-                }}
-              >
-                {category}
-              </button>
-            ))}
-          </div>
-        </div>
-      </div>
+
 
       {/* Big Carousel Section - Middle (1 project at a time, image + title) */}
       <div className="mb-16 mx-auto">
@@ -151,12 +127,32 @@ export default function GalleryView({ projects }: GalleryViewProps) {
       {/* Project Grid Showcase Section - Bottom */}
       <div id="project-grid-showcase" className="mx-auto pb-10">
         <div className="bg-amber-950 p-8 shadow-pixel-main">
-          <h2 className="pixel-text text-3xl mb-8 text-color-4 text-center uppercase">ALL PROJECTS</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <input
+            type="text"
+            placeholder="SEARCH PROJECTS..."
+            className="w-full p-4 border-4 border-color-4 pixel-text mb-6 text-amber-200/20 text-center uppercase bg-color-3"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+          <div className="flex flex-wrap justify-center gap-4">
+            {categories.map(category => (
+              <button
+                key={category}
+                className={`pixel-text px-8 py-4 border-4 border-color-4 uppercase ${filterCategory === category ? 'bg-color-4 text-color-1' : 'bg-color-3 text-amber-200'} hover:bg-color-1 hover:text-color-4 transition-colors duration-200`}
+                onClick={() => {
+                  setFilterCategory(category);
+                  setCurrentPage(1);
+                }}
+              >
+                {category}
+              </button>
+            ))}
+          </div>
+          <div className=" mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {paginatedProjects.map(project => (
               <a key={project.id} href={project.link} target="_blank" rel="noopener noreferrer" className="block relative group">
                 <img src={project.image} alt={project.title} className="w-full h-64 object-cover pixelated-image art-frame-sm" />
-                <div className="absolute inset-0 flex items-end p-4 bg-color-1/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div className="absolute inset-0 flex items-end p-4 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <div className="text-color-4">
                     <h3 className="pixel-text text-lg mb-1 uppercase">{project.title}</h3>
                     <p className="text-sm">{project.description}</p>
