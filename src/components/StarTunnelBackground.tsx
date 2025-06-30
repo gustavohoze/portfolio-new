@@ -4,6 +4,14 @@ import { useEffect, useRef } from 'react';
 
 type Phase = 'idle' | 'flicker' | 'zoom' | 'white' | 'done';
 
+type Star = {
+  x: number;
+  y: number;
+  angle: number;
+  speed: number;
+  length: number;
+};
+
 const STAR_COUNT = 180;
 const SPEED = 0.035;
 const BLUR = 1;
@@ -27,7 +35,7 @@ function createStar(width: number, height: number) {
 export default function StarTunnelBackground({ phase }: { phase: Phase }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const animationRef = useRef<number>(0);
-  const starsRef = useRef<any[]>([]);
+  const starsRef = useRef<Star[]>([]);
 
   useEffect(() => {
     function resize() {
@@ -61,7 +69,7 @@ export default function StarTunnelBackground({ phase }: { phase: Phase }) {
       ctx.clearRect(0, 0, width, height);
       ctx.save();
       ctx.filter = `blur(${BLUR}px)`;
-      for (let star of starsRef.current) {
+      for (const star of starsRef.current as Star[]) {
         // Move star outward
         const dx = star.x - width / 2;
         const dy = star.y - height / 2;

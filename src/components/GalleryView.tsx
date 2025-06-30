@@ -1,6 +1,7 @@
 // components/GalleryView.tsx
 
 import React, { useState, useMemo, useEffect } from 'react';
+import Image from 'next/image';
 
 interface Project {
   id: string;
@@ -85,9 +86,11 @@ export default function GalleryView({ projects }: GalleryViewProps) {
             {carouselProjects.length > 0 && (
               <>
                 <a href={carouselProjects[carouselIndex].link} target="_blank" rel="noopener noreferrer" className="block w-full relative">
-                  <img
+                  <Image
                     src={carouselProjects[carouselIndex].image}
                     alt={carouselProjects[carouselIndex].title}
+                    width={800}
+                    height={500}
                     className="w-full h-[500px] object-cover pixelated-image art-frame-lg"
                   />
                   <div className="absolute bottom-0 left-0 bg-color-1/70 p-4">
@@ -151,7 +154,7 @@ export default function GalleryView({ projects }: GalleryViewProps) {
           <div className=" mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {paginatedProjects.map(project => (
               <a key={project.id} href={project.link} target="_blank" rel="noopener noreferrer" className="block relative group">
-                <img src={project.image} alt={project.title} className="w-full h-64 object-cover pixelated-image art-frame-sm" />
+                <Image src={project.image} alt={project.title} width={400} height={256} className="w-full h-64 object-cover pixelated-image art-frame-sm" />
                 <div className="absolute inset-0 flex items-end p-4 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <div className="text-color-4">
                     <h3 className="pixel-text text-lg mb-1 uppercase">{project.title}</h3>

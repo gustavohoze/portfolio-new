@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { FiDownload, FiLinkedin, FiGithub, FiMail, FiPhone, FiArrowRight } from 'react-icons/fi';
+import { FiLinkedin, FiGithub, FiArrowRight } from 'react-icons/fi';
+import Image from 'next/image';
 import MatrixWaveBackground from '../../components/MatrixWaveBackground';
 import { projectData } from './ModelData';
 
@@ -7,7 +8,6 @@ import { projectData } from './ModelData';
 const professionalSummary = "A dedicated developer crafting seamless and engaging user experiences for both web and iOS. I transform complex ideas into clean, efficient, and beautiful applications.";
 const workExperience = [ { role: "Junior iOS Developer", company: "Apple Developer Academy", period: "2023 - Present" }, { role: "Front-End Developer", company: "BNCC", period: "2022 - 2023" } ];
 const skills = { "Languages": ["JavaScript", "TypeScript", "Swift", "Python"], "Frameworks": ["React", "Next.js", "SwiftUI", "Node.js"], "Tools": ["Git", "Docker", "Figma", "Xcode"] };
-const education = { degree: "Bachelor of Science in Computer Science", university: "BINUS University", period: "2021 - 2025" };
 
 // --- Reusable Components ---
 const NavLink: React.FC<{onClick: () => void, isActive: boolean, children: React.ReactNode}> = ({ onClick, isActive, children }) => (
@@ -21,10 +21,10 @@ const ProjectCard: React.FC<{project: typeof projectData[0]}> = ({ project }) =>
     <div className="group relative bg-slate-800/50 rounded-lg overflow-hidden border border-slate-700/50 transition-all duration-300 hover:border-slate-600/50 hover:shadow-2xl">
         <div className="absolute -inset-px bg-gradient-to-r from-cyan-400 to-violet-500 rounded-lg opacity-0 group-hover:opacity-60 transition-opacity duration-300 blur-md"></div>
         <div className="relative">
-            <img src={project.image} alt={project.title} className="w-full h-48 object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-300" />
+            <Image src={project.image} alt={project.title} width={600} height={200} className="w-full h-48 object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-300" />
             <div className="p-6">
                 <h3 className="heading-font text-xl font-bold text-white mb-2">{project.title}</h3>
-                <p className="text-slate-400 mb-4">{project.description}</p>
+                <p className="text-slate-400 mb-4">{project.description.replace(/'/g, "&#39;")}</p>
                 <a href={project.link} className="inline-flex items-center font-semibold text-slate-300 hover:text-white transition-colors">
                     View Project <FiArrowRight className="ml-2" />
                 </a>

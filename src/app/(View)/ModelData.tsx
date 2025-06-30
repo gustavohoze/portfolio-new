@@ -12,7 +12,7 @@ interface VisitorData {
 export const visitorModelData: VisitorData[] = [
   {
     question: "???",
-    description: <>Hey There! I'm your guide for this journey. Let's get started!</>,
+    description: <>Hey There! I&apos;m your guide for this journey. Let&apos;s get started!</>,
     background: "roomBg.png",
     character: "wave.png",
     characterAlt: "Smiling character waving",
@@ -20,18 +20,18 @@ export const visitorModelData: VisitorData[] = [
   },
   {
     question: "???",
-    description: <>Well, I'm not sure what you're looking for, but I'm here to help you find it.</>,
+    description: <>Well, I&apos;m not sure what you&apos;re looking for, but I&apos;m here to help you find it.</>,
     background: "roomBg.png",
     character: "confused.png",
     characterAlt: "Character confused",
-    answers: [{ text: "Umm, I'm not sure either. Anyway, who are you?", nextStep: 2 }],
+    answers: [{ text: "Umm, I&apos;m not sure either. Anyway, who are you?", nextStep: 2 }],
   },
   {
     question: "Vovo",
     description: (
       <>
-        Well, I forgot about that. I’m <b>Vovo</b>, a Computer Science student at BINUS University, focusing on web and iOS
-        development. Currently, I’m a Junior iOS Developer at the Apple Developer Academy. I’ve also worked as a
+        Well, I forgot about that. I&apos;m <b>Vovo</b>, a Computer Science student at BINUS University, focusing on web and iOS
+        development. Currently, I&apos;m a Junior iOS Developer at the Apple Developer Academy. I&apos;ve also worked as a
         Front-End Developer and mentor at BNCC.
       </>
     ),
@@ -112,7 +112,7 @@ export const visitorModelData: VisitorData[] = [
 
     Tadaa! Here are some of my projects! <br />
 
-    I'll just leave you here. If you need anything, just click the done button.
+    I&apos;ll just leave you here. If you need anything, just click the done button.
 
     </>,
 
@@ -122,14 +122,14 @@ export const visitorModelData: VisitorData[] = [
 
     characterAlt: "Character wave",
 
-    answers: [{ text: "Umm Okay, I'll have my time here.", nextStep: 'gallery' }],
+    answers: [{ text: "Umm Okay, I&apos;ll have my time here.", nextStep: 'gallery' }],
 
   },
   {
     question: "Vovo",
     description: (
       <>
-        Oh you're done? <br />Do you want to see something else?
+        Oh you&apos;re done? <br />Do you want to see something else?
       </>
     ),
     background: "gallery.png", // This background will be shown when returning from gallery

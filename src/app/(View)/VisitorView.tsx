@@ -1,19 +1,22 @@
 // VisitorView.tsx
-import { SetStateAction, useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { visitorModelData, projectData } from "./ModelData"; // Assuming projectData is in the same file for now
 import GalleryView from "@/components/GalleryView"; // Import the new GalleryView component
 import ContactView from "@/components/ContactView";
 import AwardView from "@/components/AwardView";
+import Image from 'next/image';
 
 export default function VisitorView() {
   const [step, setStep] = useState(0);
   const [viewMode, setViewMode] = useState<'conversation' | 'gallery' | 'contact' | 'award'>('conversation'); // New state for view mode
   const [isTransitioning, setIsTransitioning] = useState(false);
 
-  // Get data for current step (if in conversation mode) or a default for gallery background
-  const data = viewMode === 'conversation'
-  ? visitorModelData[step] ?? visitorModelData[0]
-  : { background: "gallery.png", contentBox: undefined, character: "", characterAlt: "", question: "", description: "", answers: [] }; // Add contentBox as undefined // Use gallery.png as default background for gallery mode
+  const data = useMemo(() =>
+    viewMode === 'conversation'
+      ? visitorModelData[step] ?? visitorModelData[0]
+      : { background: "gallery.png", contentBox: undefined, character: "", characterAlt: "", question: "", description: "", answers: [] },
+    [viewMode, step]
+  );
 
   const [contentBoxFlicker, setContentBoxFlicker] = useState(false);
   const [contentBoxVisible, setContentBoxVisible] = useState(false);
@@ -106,7 +109,7 @@ export default function VisitorView() {
 
           {/* Character - bottom left */}
           <div className="absolute bottom-10 left-8 z-1">
-            <img src={data.character} alt={data.characterAlt || "Character"} className="w-88 h-auto" style={{ objectFit: "contain" }} />
+            <Image src={data.character} alt={data.characterAlt || "Character"} width={200} height={200} className="w-88 h-auto" style={{ objectFit: "contain" }} />
           </div>
 
           {/* Container for PixelBox & ContentBox */}
