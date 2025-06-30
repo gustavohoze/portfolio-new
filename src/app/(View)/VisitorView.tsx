@@ -72,7 +72,7 @@ export default function VisitorView() {
   };
 
   return (
-    <div className="relative w-full min-h-screen bg-fixed bg-center" style={{ backgroundImage: `url(${data.background})` }}>
+    <div className="pixel-art-container relative w-full min-h-screen bg-fixed bg-center" style={{ backgroundImage: `url(${data.background})` }}>
       {/* "Done" Button (replaces Back/Exit) */}
       <div className="fixed top-10 left-10 z-30"> {/* Increased z-index to be above gallery content */}
         <button

@@ -1,14 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@700;800&family=Inter:wght@400;500&display=swap');
 @import "tailwindcss";
 
 :root {
   --background: #ffffff;
   --foreground: #000000;
+  --font-heading: 'Exo 2', sans-serif;
+  --font-sans: 'Inter', sans-serif;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: 'Courier New', monospace;
+  --font-sans: var(--font-sans);
   --font-mono: 'Courier New', monospace;
 }
 
@@ -22,7 +25,7 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: 'Courier New', monospace;
+  font-family: var(--font-sans);
   image-rendering: pixelated;
   image-rendering: -moz-crisp-edges;
   image-rendering: crisp-edges;
@@ -43,13 +46,27 @@ body {
   text-transform: uppercase;
 }
 
-/* Smooth transitions for pixel art feel */
-* {
+.pixel-art-container * {
   transition: all 0.2s ease-in-out;
 }
 
+.pixel-art-container button:hover {
+  transform: translateY(-2px);
+  box-shadow: 4px 4px 0px #000000;
+}
+
+.pixel-art-container button:active {
+  transform: translateY(0px);
+  box-shadow: 2px 2px 0px #000000;
+}
+
+/* Smooth transitions for pixel art feel */
+/* * {
+  transition: all 0.2s ease-in-out;
+} */
+
 /* Button hover effects */
-button:hover {
+/* button:hover {
   transform: translateY(-2px);
   box-shadow: 4px 4px 0px #000000;
 }
@@ -57,4 +74,45 @@ button:hover {
 button:active {
   transform: translateY(0px);
   box-shadow: 2px 2px 0px #000000;
+} */
+
+/* Keyframe for content fade-in */
+@keyframes contentFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-content-fade-in {
+  animation: contentFadeIn 0.5s ease-in-out forwards;
+}
+
+/* Keyframe for animated gradient background */
+@keyframes animated-gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animated-background {
+  background-size: 200% 200%;
+  background-image: linear-gradient(
+    -45deg,
+    #1b2735 0%,
+    #090a0f 25%,
+    #090a0f 50%,
+    #1b2735 100%
+  );
+  animation: animated-gradient 15s ease infinite;
 }
