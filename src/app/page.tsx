@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Onboarding from '@/components/Onboarding';
 import StarTunnelBackground from '@/components/StarTunnelBackground';
+import VisitorView from './(View)/VisitorView';
 
 type UserRole = 'recruiter' | 'visitor' | null;
 type Phase = 'idle' | 'flicker' | 'zoom' | 'white' | 'done';
@@ -114,55 +115,6 @@ function RecruiterView() {
   );
 }
 
-function VisitorView() {
-  return (
-    <div className="min-h-screen bg-white p-8">
-      <div className="max-w-4xl mx-auto">
-        <header className="mb-12 text-center">
-          <h1 className="text-4xl font-bold text-black mb-4 tracking-wider">
-            VISITOR VIEW
-          </h1>
-          <div className="w-24 h-2 bg-black mx-auto"></div>
-        </header>
-        <div className="bg-white border-4 border-black p-8">
-          <h2 className="text-2xl font-bold text-black mb-6 tracking-wide">
-            CREATIVE PORTFOLIO
-          </h2>
-          <p className="text-gray-700 leading-relaxed mb-6">
-            Welcome, visitor! This view showcases my creative work, personal 
-            projects, and artistic portfolio.
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
-            <div className="border-2 border-black p-4">
-              <h3 className="text-lg font-bold text-black mb-2">ARTWORK</h3>
-              <p className="text-gray-700">Creative projects and designs</p>
-            </div>
-            <div className="border-2 border-black p-4">
-              <h3 className="text-lg font-bold text-black mb-2">BLOG</h3>
-              <p className="text-gray-700">Thoughts and insights</p>
-            </div>
-            <div className="border-2 border-black p-4">
-              <h3 className="text-lg font-bold text-black mb-2">ABOUT</h3>
-              <p className="text-gray-700">Personal story and interests</p>
-            </div>
-            <div className="border-2 border-black p-4">
-              <h3 className="text-lg font-bold text-black mb-2">CONNECT</h3>
-              <p className="text-gray-700">Social media and contact</p>
-            </div>
-          </div>
-        </div>
-        <div className="text-center mt-8">
-          <button
-            onClick={() => {
-              localStorage.removeItem('userRole');
-              window.location.reload();
-            }}
-            className="bg-black text-white border-2 border-black px-6 py-2 font-bold tracking-wider hover:bg-white hover:text-black transition-all duration-200"
-          >
-            RESET CHOICE
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-}
+
+
+

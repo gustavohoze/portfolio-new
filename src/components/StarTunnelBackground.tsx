@@ -6,7 +6,7 @@ type Phase = 'idle' | 'flicker' | 'zoom' | 'white' | 'done';
 
 const STAR_COUNT = 180;
 const SPEED = 0.035;
-const BLUR = 8;
+const BLUR = 1;
 
 function randomBetween(a: number, b: number) {
   return a + Math.random() * (b - a);
@@ -94,7 +94,7 @@ export default function StarTunnelBackground({ phase }: { phase: Phase }) {
   }, []);
 
   // Animate scale and opacity based on phase
-  const scale = phase === 'zoom' || phase === 'white' ? 4 : 1;
+  const scale = phase === 'zoom' || phase === 'white' ? 56 : 1;
   const opacity = phase === 'white' || phase === 'done' ? 0 : 1;
 
   return (
