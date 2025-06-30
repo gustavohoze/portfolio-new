@@ -2,13 +2,17 @@
 import { SetStateAction, useEffect, useState } from "react";
 import { visitorModelData, projectData } from "./ModelData"; // Assuming projectData is in the same file for now
 import GalleryView from "@/components/GalleryView"; // Import the new GalleryView component
+import ContactView from "@/components/ContactView";
+import AwardView from "@/components/AwardView";
 
 export default function VisitorView() {
   const [step, setStep] = useState(0);
-  const [viewMode, setViewMode] = useState<'conversation' | 'gallery'>('conversation'); // New state for view mode
+  const [viewMode, setViewMode] = useState<'conversation' | 'gallery' | 'contact' | 'award'>('conversation'); // New state for view mode
 
   // Get data for current step (if in conversation mode) or a default for gallery background
-  const data = viewMode === 'conversation' ? visitorModelData[step] ?? visitorModelData[0] : { background: "gallery.png" }; // Use gallery.png as default background for gallery mode
+  const data = viewMode === 'conversation'
+  ? visitorModelData[step] ?? visitorModelData[0]
+  : { background: "gallery.png", contentBox: undefined, character: "", characterAlt: "", question: "", description: "", answers: [] }; // Add contentBox as undefined // Use gallery.png as default background for gallery mode
 
   const [contentBoxFlicker, setContentBoxFlicker] = useState(false);
   const [contentBoxVisible, setContentBoxVisible] = useState(false);
@@ -16,11 +20,11 @@ export default function VisitorView() {
   useEffect(() => {
     let initialDelayTimer: NodeJS.Timeout | null = null;
     let flickerDurationTimer: NodeJS.Timeout | null = null;
-
-    if (data.contentBox && viewMode === 'conversation') { // Only flicker if in conversation mode
+  
+    if (viewMode === 'conversation' || viewMode === 'contact' || viewMode === 'award' && 'contentBox' in data && data.contentBox) { // Added type check
       setContentBoxVisible(false);
       setContentBoxFlicker(false);
-
+  
       initialDelayTimer = setTimeout(() => {
         setContentBoxVisible(true);
         setContentBoxFlicker(true);
@@ -32,17 +36,19 @@ export default function VisitorView() {
       setContentBoxVisible(false);
       setContentBoxFlicker(false);
     }
-
+  
     return () => {
       if (initialDelayTimer) clearTimeout(initialDelayTimer);
       if (flickerDurationTimer) clearTimeout(flickerDurationTimer);
     };
-  }, [step, data.contentBox, viewMode]); // Added viewMode to dependencies
+  }, [step, data, viewMode]);
 
   const handleBack = () => {
-    if (viewMode === 'gallery') {
-      setViewMode('conversation'); // Switch back to conversation mode
-      setStep(5); // Go to step where Vovo asks if user is done (or appropriate step)
+    if (viewMode !== 'conversation') {
+      setViewMode('conversation');
+      setStep(5);
+    } else if (step === 5) { // Special case for the "Oh you're done?" step
+      setStep(3); // Go back to the main question hub
     } else if (step > 0) {
       setStep((prev) => prev - 1);
     } else {
@@ -51,11 +57,15 @@ export default function VisitorView() {
     }
   };
 
-  const handleAnswer = (next: number | 'gallery') => { // next can be number or 'gallery'
+  const handleAnswer = (next: number | 'gallery' | 'contact' | 'award') => { // next can be number or 'gallery'
     if (next === 'gallery') {
       setViewMode('gallery');
     } else if (typeof next === "number" && next < visitorModelData.length) {
       setStep(next);
+    } else if (next === 'contact') {
+      setViewMode('contact');
+    } else if (next === 'award') {
+      setViewMode('award');
     } else {
       setStep(0);
     }
@@ -116,10 +126,16 @@ export default function VisitorView() {
             </div>
           </div>
         </>
-      ) : (
+      ) : viewMode === 'gallery' ? (
         // Gallery View
         <GalleryView projects={projectData} /> // Pass all project data to GalleryView
-      )}
+      ) : viewMode === 'contact' ? (
+        // Contact View
+        <ContactView /> // Pass all project data to GalleryView
+      ) : viewMode === 'award' ? (
+        // Award View
+        <AwardView /> // Pass all project data to GalleryView
+      ) : null}
 
       {/* Styles */}
       <style jsx>{`

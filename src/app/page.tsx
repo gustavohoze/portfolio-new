@@ -1,9 +1,10 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Onboarding from '@/components/Onboarding';
 import StarTunnelBackground from '@/components/StarTunnelBackground';
 import VisitorView from './(View)/VisitorView';
+import RecruiterView from './(View)/RecruiterView';
 
 type UserRole = 'recruiter' | 'visitor' | null;
 type Phase = 'idle' | 'flicker' | 'zoom' | 'white' | 'done';
@@ -13,6 +14,16 @@ export default function Home() {
   const [phase, setPhase] = useState<Phase>('idle');
   const [whiteFade, setWhiteFade] = useState(false);
   const [showWhiteOverlay, setShowWhiteOverlay] = useState(false);
+  const [initialRoleChecked, setInitialRoleChecked] = useState(false);
+
+  useEffect(() => {
+    const storedRole = localStorage.getItem('userRole') as UserRole;
+    if (storedRole) {
+      setUserRole(storedRole);
+      setPhase('done');
+    }
+    setInitialRoleChecked(true);
+  }, []);
 
   // Handle onboarding transitions
   const handleOnboardingPhase = (nextPhase: Phase, role?: UserRole) => {
@@ -31,10 +42,14 @@ export default function Home() {
     }
   };
 
+  if (!initialRoleChecked) {
+    return null; // or a loading spinner
+  }
+
   // White overlay logic
   const showWhite = (phase === 'white' || (phase === 'done' && whiteFade)) && showWhiteOverlay;
-  const showTunnel = phase !== 'done';
-  const showOnboarding = phase !== 'done';
+  const showTunnel = phase !== 'done' && !userRole;
+  const showOnboarding = phase !== 'done' && !userRole;
   const showContent = phase === 'done' && userRole;
 
   return (
@@ -58,59 +73,6 @@ export default function Home() {
           {userRole === 'recruiter' ? <RecruiterView /> : <VisitorView />}
         </div>
       )}
-    </div>
-  );
-}
-
-function RecruiterView() {
-  return (
-    <div className="min-h-screen bg-white p-8">
-      <div className="max-w-4xl mx-auto">
-        <header className="mb-12 text-center">
-          <h1 className="text-4xl font-bold text-black mb-4 tracking-wider">
-            RECRUITER VIEW
-          </h1>
-          <div className="w-24 h-2 bg-black mx-auto"></div>
-        </header>
-        <div className="bg-white border-4 border-black p-8">
-          <h2 className="text-2xl font-bold text-black mb-6 tracking-wide">
-            PROFESSIONAL PORTFOLIO
-          </h2>
-          <p className="text-gray-700 leading-relaxed mb-6">
-            Welcome, recruiter! This view is tailored to showcase my professional 
-            experience, technical skills, and project portfolio.
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
-            <div className="border-2 border-black p-4">
-              <h3 className="text-lg font-bold text-black mb-2">SKILLS</h3>
-              <p className="text-gray-700">Technical skills and expertise</p>
-            </div>
-            <div className="border-2 border-black p-4">
-              <h3 className="text-lg font-bold text-black mb-2">EXPERIENCE</h3>
-              <p className="text-gray-700">Work history and achievements</p>
-            </div>
-            <div className="border-2 border-black p-4">
-              <h3 className="text-lg font-bold text-black mb-2">PROJECTS</h3>
-              <p className="text-gray-700">Portfolio of work</p>
-            </div>
-            <div className="border-2 border-black p-4">
-              <h3 className="text-lg font-bold text-black mb-2">CONTACT</h3>
-              <p className="text-gray-700">Professional contact information</p>
-            </div>
-          </div>
-        </div>
-        <div className="text-center mt-8">
-          <button
-            onClick={() => {
-              localStorage.removeItem('userRole');
-              window.location.reload();
-            }}
-            className="bg-black text-white border-2 border-black px-6 py-2 font-bold tracking-wider hover:bg-white hover:text-black transition-all duration-200"
-          >
-            RESET CHOICE
-          </button>
-        </div>
-      </div>
     </div>
   );
 }

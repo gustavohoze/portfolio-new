@@ -1,6 +1,6 @@
 // components/GalleryView.tsx
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 
 interface Project {
   id: string;
@@ -22,6 +22,7 @@ export default function GalleryView({ projects }: GalleryViewProps) {
   const [searchTerm, setSearchTerm] = useState('');
   const [filterCategory, setFilterCategory] = useState('All');
   const [currentPage, setCurrentPage] = useState(1); // State for pagination
+  const [carouselIndex, setCarouselIndex] = useState(0);
 
   const categories = useMemo(() => ['All', ...new Set(projects.map(p => p.category))].sort(), [projects]);
 
@@ -55,7 +56,21 @@ export default function GalleryView({ projects }: GalleryViewProps) {
   };
 
   const carouselProjects = useMemo(() => projects.slice(0, 3), [projects]);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCarouselIndex(prev => (prev + 1) % carouselProjects.length); // Loops back to the first project
+    }, 5000); // 5 seconds per slide
+    return () => clearInterval(interval); // Cleanup on unmount
+  }, [carouselProjects.length]);
 
+  const handlePrev = () => {
+    setCarouselIndex(prev => (prev - 1 + carouselProjects.length) % carouselProjects.length);
+  };
+  const handleNext = () => {
+    setCarouselIndex(prev => (prev + 1) % carouselProjects.length);
+  };
+
+  
   return (
     <div className="w-full h-full overflow-y-auto custom-scrollbar py-24 px-8 ">
       {/* Search and Filter Section - Top */}
@@ -90,13 +105,44 @@ export default function GalleryView({ projects }: GalleryViewProps) {
         <div className="bg-amber-950 p-8 shadow-pixel-main">
           <h2 className="pixel-text text-3xl mb-8 text-color-4 text-center uppercase">FEATURED SHOWCASE</h2>
           <div className="relative w-full overflow-hidden">
+            {/* Carousel Content */}
             {carouselProjects.length > 0 && (
-              <a href={carouselProjects[0].link} target="_blank" rel="noopener noreferrer" className="block w-full relative group">
-                <img src={carouselProjects[0].image} alt={carouselProjects[0].title} className="w-full h-[500px] object-cover pixelated-image art-frame-lg" />
-                <div className="absolute bottom-0 left-0 bg-color-1/70 p-4 transition-colors duration-200">
-                  <h3 className="pixel-text text-xl text-color-4 uppercase">{carouselProjects[0].title}</h3>
+              <>
+                <a href={carouselProjects[carouselIndex].link} target="_blank" rel="noopener noreferrer" className="block w-full relative">
+                  <img
+                    src={carouselProjects[carouselIndex].image}
+                    alt={carouselProjects[carouselIndex].title}
+                    className="w-full h-[500px] object-cover pixelated-image art-frame-lg"
+                  />
+                  <div className="absolute bottom-0 left-0 bg-color-1/70 p-4">
+                    <h3 className="pixel-text text-xl text-color-4 uppercase">{carouselProjects[carouselIndex].title}</h3>
+                  </div>
+                </a>
+                {/* Indicators */}
+                <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex gap-1">
+                  {carouselProjects.map((_, index) => (
+                    <div
+                      key={index}
+                      className={`w-3 h-3 rounded-full ${
+                        index === carouselIndex ? 'bg-color-4' : 'bg-color-3'
+                      }`}
+                    />
+                  ))}
                 </div>
-              </a>
+                {/* Chevron Navigation */}
+                <button
+                  className="absolute top-1/2 left-4 transform -translate-y-1/2 bg-black/50 text-color-4 p-2 hover:bg-color-1"
+                  onClick={handlePrev}
+                >
+                  ❮
+                </button>
+                <button
+                  className="absolute top-1/2 right-4 transform -translate-y-1/2 bg-black/50 text-color-4 p-2 hover:bg-color-1"
+                  onClick={handleNext}
+                >
+                  ❯
+                </button>
+              </>
             )}
           </div>
         </div>

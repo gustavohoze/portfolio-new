@@ -1,5 +1,15 @@
 // visitorModelData.js
-export const visitorModelData = [
+interface VisitorData {
+  question: string;
+  description: React.ReactNode;
+  background: string;
+  character: string;
+  characterAlt: string;
+  answers: { text: string; nextStep: number | 'gallery' | 'contact' | 'award'; }[];
+  contentBox?: React.ReactNode; // Mark as optional
+}
+
+export const visitorModelData: VisitorData[] = [
   {
     question: "???",
     description: <>Hey There! I'm your guide for this journey. Let's get started!</>,
@@ -91,8 +101,8 @@ export const visitorModelData = [
     characterAlt: "Character confused",
     answers: [
       { text: "I want to see your projects", nextStep: 4 }, // Changed nextStep to 'gallery'
-      { text: "I want to ask you something", nextStep: 4 },
-      { text: "Do you have any awards?", nextStep: 4 },
+      { text: "I want to ask you something", nextStep: 'contact' },
+      { text: "Do you have any awards?", nextStep: 'award' },
     ],
   },
   {
@@ -127,8 +137,8 @@ export const visitorModelData = [
     characterAlt: "Character confused",
     answers: [
       { text: "I want to see your projects", nextStep: 'gallery' },
-      { text: "I want to ask you something", nextStep: 4 },
-      { text: "Do you have any awards?", nextStep: 4 },
+      { text: "I want to ask you something", nextStep: 'contact' },
+      { text: "Do you have any awards?", nextStep: 'award' },
     ],
   },
 ];
