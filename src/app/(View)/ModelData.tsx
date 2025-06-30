@@ -25,7 +25,7 @@ export const visitorModelData: VisitorData[] = [
     background: "roomBg.png",
     character: "confused.png",
     characterAlt: "Character confused",
-    answers: [{ text: "Umm, I&apos;m not sure either. Anyway, who are you?", nextStep: 2 }],
+    answers: [{ text: "Umm, not sure either. Anyway, who are you?", nextStep: 2 }],
   },
   {
     question: "Vovo",
