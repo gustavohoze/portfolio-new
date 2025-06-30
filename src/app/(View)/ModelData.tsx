@@ -1,3 +1,4 @@
+import Image from 'next/image';
 // visitorModelData.js
 interface VisitorData {
   question: string;
@@ -59,7 +60,7 @@ export const visitorModelData: VisitorData[] = [
               className="flex items-center"
               aria-label="LinkedIn Profile"
             >
-              <img src="linkedin.png" alt="LinkedIn Logo" className="w-8 h-8 pixelated-image" />
+              <Image src="linkedin.png" alt="LinkedIn Logo" width={32} height={32} className="w-8 h-8 pixelated-image" />
             </a>
             <a
               href="https://github.com/gustavohoze"
@@ -68,7 +69,7 @@ export const visitorModelData: VisitorData[] = [
               className="flex items-center"
               aria-label="GitHub Profile"
             >
-              <img src="github.png" alt="GitHub Logo" className="w-8 h-8 pixelated-image" />
+              <Image src="github.png" alt="GitHub Logo" width={32} height={32} className="w-8 h-8 pixelated-image" />
             </a>
             <a
               href="https://wa.me/6285104937022"
@@ -77,7 +78,7 @@ export const visitorModelData: VisitorData[] = [
               className="flex items-center"
               aria-label="WhatsApp Contact"
             >
-              <img src="phone.png" alt="WhatsApp Logo" className="w-8 h-8 pixelated-image" />
+              <Image src="phone.png" alt="WhatsApp Logo" width={32} height={32} className="w-8 h-8 pixelated-image" />
             </a>
             <a
               href="mailto:gustaveronic@gmail.com"
@@ -86,7 +87,7 @@ export const visitorModelData: VisitorData[] = [
               className="flex items-center"
               aria-label="Email Contact"
             >
-              <img src="mail.png" alt="Email Icon" className="w-8 h-8 pixelated-image" />
+              <Image src="mail.png" alt="Email Icon" width={32} height={32} className="w-8 h-8 pixelated-image" />
             </a>
           </div>
         </div>
