@@ -1,6 +1,7 @@
 // src/app/(View)/ContactView.tsx
 
 import React from "react";
+import Image from 'next/image';
 
 const contactLinks = [
   {
@@ -38,7 +39,7 @@ export default function ContactView() {
           <div className="book-page left flex-1 flex flex-col justify-center items-center p-8 bg-white border-r-4 border-black relative z-10">
             <h2 className="pixel-text text-3xl mb-4 text-black text-center uppercase">Contact Me</h2>
             <p className="pixel-text text-base text-black text-center opacity-80 max-w-xs">
-              "Let's connect! Whether you're a recruiter, collaborator, or just want to say hi, my inbox is always open."
+              &quot;Let&apos;s connect! Whether you&apos;re a recruiter, collaborator, or just want to say hi, my inbox is always open.&quot;
             </p>
           </div>
           {/* Spine */}
@@ -48,9 +49,9 @@ export default function ContactView() {
             <div className="w-full flex flex-col items-center">
               <h3 className="pixel-text text-xl text-black mb-6 text-center uppercase tracking-wide">Contact Information</h3>
               <div className="w-full flex flex-col gap-0.5">
-                {contactLinks.map((link, idx) => (
+                {contactLinks.map((link) => (
                   <div key={link.label} className="flex items-center gap-4 py-3 px-2 w-full">
-                    <img src={link.icon} alt={link.alt} className="w-7 h-7 pixel-icon" />
+                    <Image src={link.icon} alt={link.alt} className="w-7 h-7 pixel-icon" />
                     <a
                       href={link.href}
                       target={link.href.startsWith('http') ? '_blank' : undefined}
