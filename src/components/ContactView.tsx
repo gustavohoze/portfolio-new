@@ -51,7 +51,7 @@ export default function ContactView() {
               <div className="w-full flex flex-col gap-0.5">
                 {contactLinks.map((link) => (
                   <div key={link.label} className="flex items-center gap-4 py-3 px-2 w-full">
-                    <Image src={link.icon} alt={link.alt} className="w-7 h-7 pixel-icon" />
+                    <Image src={link.icon} alt={link.alt} className="w-7 h-7 pixel-icon" width={28} height={28}/>
                     <a
                       href={link.href}
                       target={link.href.startsWith('http') ? '_blank' : undefined}
@@ -103,7 +103,7 @@ export default function ContactView() {
         }
         .pixel-icon {
           image-rendering: pixelated;
-          filter: invert(1) grayscale(1) contrast(2);
+          filter: invert(1) grayscale(1) contrast(2) !important;
         }
         .pixel-stamp {
           font-size: 1.5rem;
