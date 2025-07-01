@@ -7,7 +7,7 @@ import { projectData } from './ModelData';
 // --- Data (Keep as is) ---
 const professionalSummary = "A dedicated developer crafting seamless and engaging user experiences for both web and iOS. I transform complex ideas into clean, efficient, and beautiful applications.";
 const workExperience = [ { role: "Junior iOS Developer", company: "Apple Developer Academy", period: "2023 - Present" }, { role: "Front-End Developer", company: "BNCC", period: "2022 - 2023" } ];
-const skills = { "Languages": ["JavaScript", "TypeScript", "Swift", "Python"], "Frameworks": ["React", "Next.js", "SwiftUI", "Node.js"], "Tools": ["Git", "Docker", "Figma", "Xcode"] };
+const skills = { "Languages": ["JavaScript", "TypeScript", "Swift", "Python"], "Frameworks": ["React", "Next.js", "SwiftUI", "Node.js"], "Tools": ["Git", "Docker", "Figma"] };
 
 // --- Reusable Components ---
 const NavLink: React.FC<{onClick: () => void, isActive: boolean, children: React.ReactNode}> = ({ onClick, isActive, children }) => (

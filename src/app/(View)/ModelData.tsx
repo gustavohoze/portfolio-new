@@ -123,7 +123,7 @@ export const visitorModelData: VisitorData[] = [
 
     characterAlt: "Character wave",
 
-    answers: [{ text: "Umm Okay, I&apos;ll have my time here.", nextStep: 'gallery' }],
+    answers: [{ text: "Umm Okay, I will have my time here.", nextStep: 'gallery' }],
 
   },
   {
